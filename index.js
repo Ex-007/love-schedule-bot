@@ -73,7 +73,7 @@ bot.onText(/\/help/, msg => {
     // console.log(msg)
     const message = `
     ${clientName}! 
-    You Don't really need any help ${clientName}.
+    You Don't really need any help.
     But if you think you need help, you know where to reach me
 
     `
@@ -83,8 +83,7 @@ bot.onText(/\/help/, msg => {
 
 
 // STARTING THE SCHEDULED MESSAGES
-cron.schedule('0 8 * * *', () => {
-    if(chatIds){
+cron.schedule('0 9 * * *', () => {
         const randomText = generateRandom()
         chatIds.forEach(chatId => {
             bot.sendMessage(chatId, randomText)
@@ -95,9 +94,7 @@ cron.schedule('0 8 * * *', () => {
         .catch(error => {
             console.error('Encountered an error of the type ' + error)
         })
-    }else{
-        console.log('No user has started the BOT')
-    }
+
 })
 
 console.log('Bot has started and it is currently Running');
