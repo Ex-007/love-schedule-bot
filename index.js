@@ -22,8 +22,7 @@ app.get('/', (req, res) => {
 })
 
 
-let chatId = null
-let clientName = null
+let chatIds = ["7290720641", "6927124418"]
 
 
 // GENERATE THE RANDOM MESSAGE
@@ -36,27 +35,62 @@ const generateRandom = () => {
 
 // STARTING THE BOT
 bot.onText(/\/start/, msg => {
-    chatId = msg.chat.id
-    clientName = msg.from.first_name
+    const inchatId = msg.chat.id
+    const clientName = msg.from.first_name
 
-    console.log(msg)
+    // console.log(msg)
     const message = `
         ABTech welcomes You ${clientName}! 
         You'll Start Receiving a Message Every 7AM!
         Stay Connected!
+
+        /help - Get help with interacting with the bot
+        /info - Get info about the bot
     `
-    bot.sendMessage(chatId, message)
+        bot.sendMessage(inchatId, message)
+})
+
+// THE INFO
+bot.onText(/\/info/, msg => {
+     const inchatId = msg.chat.id
+     const clientName = msg.from.first_name
+
+    // console.log(msg)
+    const message = `
+    ${clientName}! 
+    This Bot is specially designed to deliver you an inspiring message every morning.
+    So, sit back, relax and enjoy.
+
+    `
+        bot.sendMessage(inchatId, message)
+})
+
+// THE HELP
+bot.onText(/\/help/, msg => {
+    const inchatId = msg.chat.id
+    const clientName = msg.from.first_name
+
+    // console.log(msg)
+    const message = `
+    ${clientName}! 
+    You Don't really need any help ${clientName}.
+    But if you think you need help, you know where to reach me
+
+    `
+        bot.sendMessage(inchatId, message)
 })
 
 
 
 // STARTING THE SCHEDULED MESSAGES
-cron.schedule('0 7 * * *', () => {
-    if(chatId){
+cron.schedule('0 8 * * *', () => {
+    if(chatIds){
         const randomText = generateRandom()
-        bot.sendMessage(chatId, randomText)
+        chatIds.forEach(chatId => {
+            bot.sendMessage(chatId, randomText)
+        })
         .then(() => {
-            bot.sendMessage(chatId, `Have a Great Day Today ${clientName}`)
+            console.log('message sent')
         })
         .catch(error => {
             console.error('Encountered an error of the type ' + error)
