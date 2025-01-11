@@ -38,6 +38,8 @@ const generateRandom = () => {
 bot.onText(/\/start/, msg => {
     chatId = msg.chat.id
     clientName = msg.from.first_name
+
+    console.log(msg)
     const message = `
         ABTech welcomes You ${clientName}! 
         You'll Start Receiving a Message Every 7AM!
@@ -45,6 +47,8 @@ bot.onText(/\/start/, msg => {
     `
     bot.sendMessage(chatId, message)
 })
+
+
 
 // STARTING THE SCHEDULED MESSAGES
 cron.schedule('0 7 * * *', () => {
