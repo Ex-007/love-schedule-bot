@@ -22,7 +22,7 @@ app.get('/', (req, res) => {
 })
 
 
-let chatIds = ["7290720641", "6927124418"]
+let chatIds = [7290720641, 6927124418]
 
 
 // GENERATE THE RANDOM MESSAGE
